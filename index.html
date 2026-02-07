@@ -5,78 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will You Be My Valentine?</title>
     <style>
+        /* Base Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            align-items: center;
+            min-height: 100vh;
             background-color: #ffe4e1;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            overflow: hidden;
+            overflow: hidden; /* Prevents scrollbars during button growth */
         }
 
         #container {
             background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 400px;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             width: 90%;
+            max-width: 450px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
 
-        h1 { color: #d63384; margin-bottom: 2rem; font-size: 24px; }
+        h1 { 
+            color: #d63384; 
+            font-size: 1.8rem; 
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
 
+        /* GIF Styling */
+        .gif-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .gif-img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 15px;
+        }
+
+        /* Button Layout */
         .buttons {
             display: flex;
-            gap: 20px;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 10px;
+            position: relative;
         }
 
         button {
             padding: 12px 25px;
-            font-size: 18px;
+            font-size: 1.1rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.1s ease;
+            transition: transform 0.1s ease;
+            white-space: nowrap;
         }
 
         #yesBtn {
             background-color: #ff4d6d;
             color: white;
             font-weight: bold;
+            z-index: 100; /* Always stays on top */
         }
 
         #noBtn {
             background-color: #adb5bd;
             color: white;
+            z-index: 10;
         }
 
         .celebration { display: none; }
-        
-        .gif-img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+
+        /* Responsive Tweaks */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.5rem; }
+            #container { padding: 20px; }
+            button { padding: 10px 20px; font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
 
     <div id="container">
         <div id="askSection">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/0S6n7fHpjO58y3iR1T/giphy.gif" class="gif-img">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/0S6n7fHpjO58y3iR1T/giphy.gif" alt="Cute Bear" class="gif-img">
+            </div>
             <h1>Will you be my Valentine? 🌹</h1>
-            <div class="buttons">
+            <div class="buttons" id="buttonWrap">
                 <button id="yesBtn">Yes</button>
                 <button id="noBtn">No</button>
             </div>
         </div>
 
         <div id="celebration" class="celebration">
-            <img src="https://media1.tenor.com/m/CH6U991E47sAAAAC/kiss.gif" class="gif-img">
-            <h1 style="margin-top: 20px;">Yayyy! ❤️</h1>
+            <div class="gif-container">
+                <img src="https://media1.tenor.com/m/CH6U991E47sAAAAC/kiss.gif" alt="Kiss" class="gif-img">
+            </div>
+            <h1>Yayyy! I knew you'd say yes! ❤️</h1>
         </div>
     </div>
 
@@ -86,25 +120,34 @@
         const askSection = document.getElementById('askSection');
         const celebration = document.getElementById('celebration');
 
-        let yesFontSize = 18;
+        let yesFontSize = 1.1; // Using rem for better scaling
+        let paddingY = 12;
+        let paddingX = 25;
         let noClicks = 0;
 
         const phrases = [
-            "No", "Are you sure?", "Really sure??", "Think again!", 
-            "Last chance!", "Surely not?", "You're breaking my heart ;(", 
-            "I'm gonna cry...", "You're mean!", "JUST SAY YES"
+            "No", "Are you sure?", "Really?", "Pwease?", 
+            "Don't do this", "I'll be sad", "I'm crying now", 
+            "Look what you've done", "OKAY FINE", "JUST CLICK YES"
         ];
 
         noBtn.addEventListener('click', () => {
-            yesFontSize += 35; 
-            yesBtn.style.fontSize = `${yesFontSize}px`;
-            yesBtn.style.padding = `${yesFontSize/2}px ${yesFontSize}px`;
+            // Increase font size and padding
+            yesFontSize += 0.8; 
+            paddingY += 10;
+            paddingX += 15;
+            
+            yesBtn.style.fontSize = `${yesFontSize}rem`;
+            yesBtn.style.padding = `${paddingY}px ${paddingX}px`;
 
+            // Change No button text
             noClicks = (noClicks + 1) % phrases.length;
             noBtn.innerText = phrases[noClicks];
 
-            if (yesFontSize > 200) {
+            // If the Yes button gets huge, it starts taking over the screen
+            if (yesFontSize > 6) {
                 noBtn.style.display = 'none';
+                yesBtn.style.width = '100%';
             }
         });
 
