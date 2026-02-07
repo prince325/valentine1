@@ -25,6 +25,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             max-width: 400px;
             width: 90%;
+            z-index: 1;
         }
 
         h1 { color: #d63384; margin-bottom: 2rem; font-size: 24px; }
@@ -43,19 +44,22 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
         }
 
         #yesBtn {
             background-color: #ff4d6d;
             color: white;
             font-weight: bold;
-            z-index: 10; /* Keeps it above the No button */
+            position: relative;
+            z-index: 100;
         }
 
         #noBtn {
             background-color: #adb5bd;
             color: white;
+            position: relative;
+            z-index: 10;
         }
 
         .celebration { display: none; }
@@ -97,19 +101,22 @@
         const phrases = [
             "No", "Are you sure?", "Really sure??", "Think again!", 
             "Last chance!", "Surely not?", "You're breaking my heart ;(", 
-            "I'm gonna cry...", "You're mean!", "OKAY FINE YES"
+            "I'm gonna cry...", "You're mean!", "JUST SAY YES"
         ];
 
         noBtn.addEventListener('click', () => {
-            yesFontSize += 25; // Grow faster for more chaos
+            // Make the Yes button bigger
+            yesFontSize += 30; 
             yesBtn.style.fontSize = `${yesFontSize}px`;
             yesBtn.style.padding = `${yesFontSize/2}px ${yesFontSize}px`;
 
+            // Change No button text
             noClicks = (noClicks + 1) % phrases.length;
             noBtn.innerText = phrases[noClicks];
 
-            if (yesFontSize > 160) {
-                noBtn.style.display = 'none';
+            // When it gets massive, hide the No button to end the "struggle"
+            if (yesFontSize > 180) {
+                noBtn.style.visibility = 'hidden';
             }
         });
 
