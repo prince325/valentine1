@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question</title>
+    <title>Will You Be My Valentine?</title>
     <style>
         body {
             display: flex;
@@ -23,21 +23,22 @@
             padding: 2rem;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 90%;
+            max-width: 400px;
+            width: 90%;
         }
 
-        h1 { color: #d63384; margin-bottom: 2rem; }
+        h1 { color: #d63384; margin-bottom: 2rem; font-size: 24px; }
 
         .buttons {
             display: flex;
             gap: 20px;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         button {
-            padding: 10px 25px;
+            padding: 12px 25px;
             font-size: 18px;
             border: none;
             border-radius: 10px;
@@ -49,6 +50,7 @@
             background-color: #ff4d6d;
             color: white;
             font-weight: bold;
+            z-index: 10; /* Keeps it above the No button */
         }
 
         #noBtn {
@@ -58,15 +60,15 @@
 
         .celebration { display: none; }
         
-        img { max-width: 200px; margin-bottom: 1rem; }
+        .initial-gif { width: 100%; border-radius: 10px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div id="container">
         <div id="askSection">
-            <img src="val.png" alt="Cute Bear">
-            <h1>Jane will you be my Valentine? 🌹</h1>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/0S6n7fHpjO58y3iR1T/giphy.gif" class="initial-gif">
+            <h1>Will you be my Valentine? 🌹</h1>
             <div class="buttons">
                 <button id="yesBtn">Yes</button>
                 <button id="noBtn">No</button>
@@ -74,8 +76,12 @@
         </div>
 
         <div id="celebration" class="celebration">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/0S6n7fHpjO58y3iR1T/giphy.gif" alt="Happy Dance">
-            <h1>Yayyy! I knew you'd say yes! ❤️</h1>
+            <div class="tenor-gif-embed" data-postid="8454154000705526464" data-share-method="host" data-aspect-ratio="1.19139" data-width="100%">
+                <a href="https://tenor.com/view/kiss-gif-8454154000705526464">Kiss Sticker</a>
+            </div>
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            
+            <h1 style="margin-top: 20px;">Yayyy! ❤️</h1>
         </div>
     </div>
 
@@ -91,21 +97,18 @@
         const phrases = [
             "No", "Are you sure?", "Really sure??", "Think again!", 
             "Last chance!", "Surely not?", "You're breaking my heart ;(", 
-            "I'm gonna cry...", "You're mean!", "YES PLEASE"
+            "I'm gonna cry...", "You're mean!", "OKAY FINE YES"
         ];
 
         noBtn.addEventListener('click', () => {
-            // Increase font size and padding for Yes button
-            yesFontSize += 15;
+            yesFontSize += 25; // Grow faster for more chaos
             yesBtn.style.fontSize = `${yesFontSize}px`;
             yesBtn.style.padding = `${yesFontSize/2}px ${yesFontSize}px`;
 
-            // Change No button text
             noClicks = (noClicks + 1) % phrases.length;
             noBtn.innerText = phrases[noClicks];
 
-            // If it gets too big, it starts to cover the No button
-            if (yesFontSize > 150) {
+            if (yesFontSize > 160) {
                 noBtn.style.display = 'none';
             }
         });
