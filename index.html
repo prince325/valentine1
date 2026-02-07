@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Will You Be My Valentine?</title>
+    <title>Will You Be My Valentine? 🧸❤️</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,7 +14,7 @@
             min-height: 100vh;
             background-color: #ffe4e1;
             font-family: 'Segoe UI', Roboto, sans-serif;
-            overflow: hidden; 
+            overflow: hidden;
             touch-action: manipulation;
         }
 
@@ -22,19 +22,19 @@
             background: white;
             padding: 25px;
             border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             width: 90%;
             max-width: 400px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.3s ease;
+            position: relative;
         }
 
-        h1 { 
-            color: #d63384; 
-            font-size: 1.6rem; 
+        h1 {
+            color: #d63384;
+            font-size: 1.6rem;
             margin: 15px 0;
             line-height: 1.2;
         }
@@ -48,11 +48,11 @@
             border-radius: 15px;
         }
 
-        /* Ensures your val.jpg fits perfectly */
         .main-img {
             width: 100%;
             height: auto;
             object-fit: contain;
+            max-height: 250px; /* Prevents image from being too tall on mobile */
         }
 
         .buttons {
@@ -62,7 +62,8 @@
             gap: 15px;
             width: 100%;
             margin-top: 10px;
-            min-height: 120px; /* Space for growth */
+            min-height: 100px; /* Reserve space so layout doesn't jump */
+            position: relative;
         }
 
         button {
@@ -72,13 +73,14 @@
             border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
-            transition: transform 0.1s ease;
+            transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         #yesBtn {
             background-color: #ff4d6d;
             color: white;
-            z-index: 999;
+            z-index: 100;
         }
 
         #noBtn {
@@ -87,77 +89,94 @@
             z-index: 10;
         }
 
-        .celebration { display: none; }
+        /* Hidden by default */
+        #celebration {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        /* Media query for very small phones */
+        #askSection {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         @media (max-width: 350px) {
             h1 { font-size: 1.3rem; }
-            button { padding: 10px 18px; }
+            button { padding: 10px 18px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="container">
-        <div id="askSection">
-            <div class="img-container">
-                <img src="val.png" alt="Valentine Bear" class="main-img">
-            </div>
-            <h1>Will you be my Valentine? 🌹</h1>
-            <div class="buttons">
-                <button id="yesBtn">Yes</button>
-                <button id="noBtn">No</button>
-            </div>
-        </div>
+<div id="container">
 
-        <div id="celebration" class="celebration">
-            <div class="img-container">
-                <img src="https://media1.tenor.com/m/CH6U991E47sAAAAC/kiss.gif" alt="Kiss" class="main-img">
-            </div>
-            <h1>Yayyy! ❤️</h1>
+    <div id="askSection">
+        <div class="img-container">
+            <img src="val.jpg" class="main-img" alt="Valentine Bear" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbG5yb21mMTRhZ3ZrNmZ2aG9kM2xqM2x3dXl5NXJtY2Z3eW12dCZjdD1n/3oriO6qJiXajN0TyDu/giphy.gif'">
+        </div>
+        <h1>Will you be my Valentine? 🌹</h1>
+        <div class="buttons">
+            <button id="yesBtn">Yes 💘</button>
+            <button id="noBtn">No 😶</button>
         </div>
     </div>
 
-    <script>
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const askSection = document.getElementById('askSection');
-        const celebration = document.getElementById('celebration');
+    <div id="celebration">
+        <div class="img-container">
+            <img src="https://media1.tenor.com/m/CH6U991E47sAAAAC/kiss.gif" class="main-img" alt="Kiss">
+        </div>
+        <h1>Yayyy! ❤️🧸</h1>
+    </div>
 
-        let yesScale = 1;
-        let noClicks = 0;
+</div>
 
-        const phrases = [
-            "No", "Are you sure?", "Really?", "Think again!", 
-            "Pwease?", "I'll be sad", "Very sad", "Ok fine...", 
-            "Look over there!", "JUST CLICK YES"
-        ];
+<script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const askSection = document.getElementById('askSection');
+    const celebration = document.getElementById('celebration');
 
-        noBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Scaled growth for mobile responsiveness
-            yesScale += 0.5;
-            yesBtn.style.transform = `scale(${yesScale})`;
+    let yesScale = 1;
+    let noAttempts = 0;
 
-            // Update No button text
-            noClicks = (noClicks + 1) % phrases.length;
-            noBtn.innerText = phrases[noClicks];
+    const phrases = [
+        "No", "Are you sure?", "Really??", "Think again 🥺", 
+        "Pwease 🧸", "That hurts 💔", "Very sad now 😢", 
+        "Ok last chance...", "JUST CLICK YES 😤"
+    ];
 
-            // If it covers the screen, hide No
-            if (yesScale > 5) {
-                noBtn.style.opacity = "0";
-                noBtn.style.pointerEvents = "none";
-            }
-        });
+    noBtn.addEventListener('click', (e) => {
+        // Prevent default behavior to stop any weird scrolling/zooming on mobile
+        e.preventDefault();
 
-        yesBtn.addEventListener('click', () => {
-            askSection.style.display = 'none';
-            celebration.style.display = 'flex';
-            celebration.style.flexDirection = 'column';
-            celebration.style.alignItems = 'center';
-            document.body.style.backgroundColor = '#ffb6c1';
-        });
-    </script>
+        // Increase the size of the YES button
+        yesScale += 0.4;
+        yesBtn.style.transform = `scale(${yesScale})`;
+
+        // Cycle through the phrases for the NO button
+        noAttempts = (noAttempts + 1) % phrases.length;
+        noBtn.innerText = phrases[noAttempts];
+
+        // Once the Yes button gets too big, hide the No button
+        if (yesScale > 5) {
+            noBtn.style.opacity = '0';
+            noBtn.style.pointerEvents = 'none'; // Makes it unclickable
+        }
+    });
+
+    yesBtn.addEventListener('click', () => {
+        // Switch screens
+        askSection.style.display = 'none';
+        celebration.style.display = 'flex';
+        
+        // Change background color for effect
+        document.body.style.backgroundColor = '#ffb6c1';
+    });
+</script>
+
 </body>
 </html>
