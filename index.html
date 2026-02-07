@@ -25,7 +25,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             max-width: 400px;
             width: 90%;
-            z-index: 1;
         }
 
         h1 { color: #d63384; margin-bottom: 2rem; font-size: 24px; }
@@ -51,27 +50,23 @@
             background-color: #ff4d6d;
             color: white;
             font-weight: bold;
-            position: relative;
-            z-index: 100;
         }
 
         #noBtn {
             background-color: #adb5bd;
             color: white;
-            position: relative;
-            z-index: 10;
         }
 
         .celebration { display: none; }
         
-        .initial-gif { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+        .gif-img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div id="container">
         <div id="askSection">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/0S6n7fHpjO58y3iR1T/giphy.gif" class="initial-gif">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6bmV6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/0S6n7fHpjO58y3iR1T/giphy.gif" class="gif-img">
             <h1>Will you be my Valentine? 🌹</h1>
             <div class="buttons">
                 <button id="yesBtn">Yes</button>
@@ -80,11 +75,7 @@
         </div>
 
         <div id="celebration" class="celebration">
-            <div class="tenor-gif-embed" data-postid="8454154000705526464" data-share-method="host" data-aspect-ratio="1.19139" data-width="100%">
-                <a href="https://tenor.com/view/kiss-gif-8454154000705526464">Kiss Sticker</a>
-            </div>
-            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-            
+            <img src="https://media1.tenor.com/m/CH6U991E47sAAAAC/kiss.gif" class="gif-img">
             <h1 style="margin-top: 20px;">Yayyy! ❤️</h1>
         </div>
     </div>
@@ -105,18 +96,15 @@
         ];
 
         noBtn.addEventListener('click', () => {
-            // Make the Yes button bigger
-            yesFontSize += 30; 
+            yesFontSize += 35; 
             yesBtn.style.fontSize = `${yesFontSize}px`;
             yesBtn.style.padding = `${yesFontSize/2}px ${yesFontSize}px`;
 
-            // Change No button text
             noClicks = (noClicks + 1) % phrases.length;
             noBtn.innerText = phrases[noClicks];
 
-            // When it gets massive, hide the No button to end the "struggle"
-            if (yesFontSize > 180) {
-                noBtn.style.visibility = 'hidden';
+            if (yesFontSize > 200) {
+                noBtn.style.display = 'none';
             }
         });
 
